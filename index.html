@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trigger Selenium</title>
+</head>
+<body>
+    <h2>Start Selenium Automation</h2>
+    <label>Username:</label>
+    <input type="text" id="username" placeholder="Enter Username"  value="Maruthu">
+    <br><br>
+    <label>Password:</label>
+    <input type="password" id="password" placeholder="Enter Password" value="guru@123">
+    <br><br>
+    <button onclick="sendAutomationRequest()">Start Automation</button>
+
+    <script>
+        function sendAutomationRequest() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            fetch("http://localhost:8080/automation/start", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ username, password })
+            })
+            .then(response => response.text())
+            .then(data => console.log("✅ Server Response:", data))
+            .catch(error => console.error("❌ Error:", error));
+        }
+    </script>
+</body>
+</html>
